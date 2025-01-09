@@ -1,0 +1,27 @@
+<div class="container mt-5">
+  <h1><%= @restaurant.name %></h1>
+  <p><strong>Address:</strong> <%= @restaurant.address %></p>
+  <p><strong>Category:</strong> <%= @restaurant.category.capitalize %></p>
+  <p><strong>Phone:</strong> <%= @restaurant.phone_number %></p>
+
+  <div class="mt-4">
+    <h3>Reviews</h3>
+    <% @restaurant.reviews.each do |review| %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <p class="card-text"><%= review.content %></p>
+          <p class="card-text"><small class="text-muted">Rating: <%= "⭐" * review.rating %></small></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-4">
+    <h3>Add a Review</h3>
+    <%= simple_form_for [@restaurant, @review] do |f| %>
+      <%= f.input :content %>
+      <%= f.input :rating, collection: 0..5 %>
+      <%= f.submit "Submit Review", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
